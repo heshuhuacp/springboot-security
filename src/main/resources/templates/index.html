@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <title sec:authentication="name"></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meat name="viewport" content="width=device-width,initial-scale=1"/>
+    <!--<link th:href="@{bootstrap-4.0.0/dist/css/bootstrap.css}" rel="stylesheet" />-->
+    <!--<script th:src="@{bootstrap-4.0.0/dist/js/bootstrap.min.js}" ></script>-->
+    <!--<script th:src="@{jquery-3.4.1.min.js}" type="text/javascript"></script>-->
+    <style type="text/css">
+        body{
+            padding-top: 50px;
+        }
+        .starter-template{
+            padding:40px 15px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="narvbar narvbar-inverse narvbar-fixted-top">
+        <div class="container">
+            <div class="narbar-header">
+                <a class="narvbar-brand" href="#">Spring Security演示</a>
+            </div>
+            <div id="narvbar" class="collapse narvbar-collapse">
+                <ul class="nav narvbar-nar">
+                    <li><a th:href="@{/}">首页</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+   <div class="container">
+       <div class="starter-template">
+           <h1 th:text="${msg.title}"></h1>
+           <p class="bg-primary" th:text="${msg.content}"></p>
+           <div sec:authorize="hasRole('ROLE_ADMIN')">
+               <p class="bg-info" th:text="${msg.extraInfo}"></p>
+           </div>
+           <div sec:authorize="hasRole('ROLE_ROOT')">
+               <p class="bg-info">无更多信息</p>
+           </div>
+           <form th:action="@{/logout}" method="post">
+               <input type="submit" class="btn btn-primary" value="注销" />
+           </form>
+       </div>
+   </div>
+</body>
+</html>
